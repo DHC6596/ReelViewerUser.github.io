@@ -1,50 +1,20 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Instant Reel Viewer</title>
-    <style>
-        body { font-family: sans-serif; max-width: 600px; margin: 40px auto; padding: 20px; }
-        input[type=text] { width: 100%; padding: 12px 20px; margin: 8px 0; display: inline-block; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
-        button { background-color: #4CAF50; color: white; padding: 14px 20px; margin: 8px 0; border: none; cursor: pointer; width: 100%; }
-        button:hover { background-color: #45a049; }
-        .viewer-container { margin-top: 20px; }
-    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Instagram Reel Viewer</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h2>Paste Your Instagram Reel Link</h2>
-    <input type="text" id="reelLink" placeholder="e.g., www.instagram.com">
-    <button onclick="displayReel()">View Reel</button>
-    <div class="viewer-container" id="viewer">
-        <!-- The reel will appear here -->
+    <div class="container">
+        <h2>Paste Your Instagram Reel Link</h2>
+        <input type="text" id="reelLink" placeholder="e.g., www.instagram.com...">
+        <button onclick="displayReel()">View Reel</button>
+        <div class="viewer-container" id="viewer">
+            <!-- The reel will appear here dynamically -->
+        </div>
     </div>
-
-    <script>
-        function displayReel() {
-            const link = document.getElementById('reelLink').value;
-            const viewer = document.getElementById('viewer');
-
-            if (link) {
-                // This uses Instagram's official way to embed the content via their API endpoint
-                fetch(`api.instagram.com{encodeURIComponent(link)}`)
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.html) {
-                            viewer.innerHTML = data.html;
-                            // Instagram requires this script to make the embed look correct
-                            if (window.instgrm) {
-                                window.instgrm.Embeds.process();
-                            }
-                        } else {
-                            viewer.innerHTML = '<p>Could not retrieve embed code. Check the link or try a different public reel.</p>';
-                        }
-                    })
-                    .catch(error => {
-                        viewer.innerHTML = `<p>Error fetching reel: Ensure the link is valid and the account is public.</p>`;
-                    });
-            }
-        }
-    </script>
-    <!-- This script is essential for the embedded reel to format correctly -->
-    <script async src="//www.instagram.com"></script>
+    <script src="script.js"></script>
 </body>
 </html>
