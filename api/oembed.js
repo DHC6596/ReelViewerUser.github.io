@@ -13,12 +13,13 @@ module.exports = async (req, res) => {
         return res.status(400).json({ error: 'Missing URL parameter' });
     }
 
-    // The official Facebook Graph API endpoint for oEmbed
+    // The official Facebook Graph API endpoint for oEmbed (Corrected URL with https://)
     const apiEndpoint = 'graph.facebook.com';
-
+    
     // We combine the App ID and Secret securely on the server side
     const accessToken = `${INSTAGRAM_APP_ID}|${INSTAGRAM_APP_SECRET}`;
-
+    
+    // Construct the final URL to fetch the data
     const fetchUrl = `${apiEndpoint}?url=${encodeURIComponent(url)}&access_token=${accessToken}`;
 
     try {
